@@ -1,0 +1,62 @@
+name: deploy one-app
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+      - name: Get git commit hash
+        id: commit-hash
+        uses: pr-mpt/actions-commit-hash@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set image tag
+        run: echo "IMAGE_TAG=${{ steps.branch-name.outputs.current_branch }}-${{ steps.commit-hash.outputs.short }}" >> $GITHUB_ENV
+      - name: install dependencies
+        run: npm install
+      - name: Build NX
+        run: npm run build
+      - name: Build Next.JS
+        run: cd ./dist/apps/one-app; npm install
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}//one-app:${{ env.IMAGE_TAG }}
