@@ -56,6 +56,8 @@ jobs:
       - name: Build Next.JS
         working-directory: ./dist/apps/one-app
         run: npm install
+      - name: list current directory
+        run: list dist/apps/one-app
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
