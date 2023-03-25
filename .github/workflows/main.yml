@@ -51,13 +51,8 @@ jobs:
         run: echo "IMAGE_TAG=${{ steps.branch-name.outputs.current_branch }}-${{ steps.commit-hash.outputs.short }}" >> $GITHUB_ENV
       - name: install dependencies
         run: npm install
-      - name: Build NX
-        run: npm run build
-      - name: Build Next.JS
-        working-directory: ./dist/apps/one-app
-        run: npm install
-      - name: list current directory
-        run: ls -la dist/apps/one-app
+      - name: Run Test
+        run: npm run test
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
