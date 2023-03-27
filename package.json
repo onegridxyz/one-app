@@ -10,6 +10,10 @@
   },
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.11.14",
     "@nrwl/next": "14.8.8",
     "core-js": "^3.6.5",
     "next": "12.3.1",
