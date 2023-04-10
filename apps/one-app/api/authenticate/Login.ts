@@ -13,9 +13,7 @@ export interface LoginResponse {
 }
 
 export const postAuthenticate = (loginRequest: LoginRequest) => {
-  console.log(`------> ${JSON.stringify(process.env)}`);
   const baseUrl = environment.gatewayUrl
-  console.log(`-----> ${baseUrl}`)
   const requestUrl = `${baseUrl}/api/authenticate`;
   return axios.post<LoginResponse>(requestUrl, {
     username: loginRequest.username,

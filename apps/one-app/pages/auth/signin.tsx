@@ -16,15 +16,17 @@ import { useMutation } from '@tanstack/react-query';
 import { postAuthenticate } from '../../api/authenticate/Login';
 
 export default function SignInPage() {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const loginMutate = useMutation({
     mutationFn: () => {
-      return postAuthenticate({ username: 'admin', password: 'admin' });
+      return postAuthenticate({
+        username: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
     },
     onSuccess: (data, variables, context) => {
       localStorage.setItem('id_token', data.data.id_token);
-      console.log(`=========> ${data.data.id_token}`);
     },
   });
 
