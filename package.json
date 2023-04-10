@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx serve --proxy-config proxy.config.json",
     "build": "nx build --configuration=development",
+    "build:prod": "nx build --configuration=production",
     "test": "nx test",
     "lint": "nx lint"
   },
