@@ -14,9 +14,22 @@
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/one-app"
+          "outputPath": "apps/one-app",
+          "fileReplacements": [
+            {
+              "replace": "apps/one-app/environments/environment.ts",
+              "with": "apps/one-app/environments/environment.development.ts"
+            }
+          ]
         },
-        "production": {}
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/one-app/environments/environment.ts",
+              "with": "apps/one-app/environments/environment.production.ts"
+            }
+          ]
+        }
       }
     },
     "serve": {
@@ -29,11 +42,23 @@
       "configurations": {
         "development": {
           "buildTarget": "one-app:build:development",
-          "dev": true
+          "dev": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/one-app/environments/environment.ts",
+              "with": "apps/one-app/environments/environment.development.ts"
+            }
+          ]
         },
         "production": {
           "buildTarget": "one-app:build:production",
-          "dev": false
+          "dev": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/one-app/environments/environment.ts",
+              "with": "apps/one-app/environments/environment.production.ts"
+            }
+          ]
         }
       }
     },

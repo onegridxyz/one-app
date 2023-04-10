@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,9 +11,23 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Copyright from '@one-app/components/copyright/Copyright';
+import Copyright from '../../components/copyright/Copyright';
+import { useMutation } from '@tanstack/react-query';
+import { postAuthenticate } from '../../api/authenticate/Login';
 
 export default function SignInPage() {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const loginMutate = useMutation({
+    mutationFn: () => {
+      return postAuthenticate({ username: 'admin', password: 'admin' });
+    },
+    onSuccess: (data, variables, context) => {
+      localStorage.setItem('id_token', data.data.id_token);
+      console.log(`=========> ${data.data.id_token}`);
+    },
+  });
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -33,6 +47,7 @@ export default function SignInPage() {
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
+            ref={emailRef}
             margin="normal"
             required
             fullWidth
@@ -43,6 +58,7 @@ export default function SignInPage() {
             autoFocus
           />
           <TextField
+            ref={passwordRef}
             margin="normal"
             required
             fullWidth
@@ -61,6 +77,10 @@ export default function SignInPage() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={(event) => {
+              event.preventDefault();
+              loginMutate.mutate();
+            }}
           >
             Sign In
           </Button>
