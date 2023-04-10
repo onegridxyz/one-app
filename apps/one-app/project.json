@@ -29,11 +29,17 @@
       "configurations": {
         "development": {
           "buildTarget": "one-app:build:development",
-          "dev": true
+          "dev": true,
+          "envFiles": [
+            "configurations/.env.local"
+          ]
         },
         "production": {
           "buildTarget": "one-app:build:production",
-          "dev": false
+          "dev": false,
+          "envFiles": [
+            "configurations/.env.production"
+          ]
         }
       }
     },
