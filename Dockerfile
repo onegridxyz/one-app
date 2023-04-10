@@ -2,7 +2,7 @@ FROM node:18 as build
 WORKDIR /one-app
 COPY . .
 RUN npm install
-RUN npm run build:production
+RUN npm run build:prod
 RUN cd dist/apps/one-app; npm install
 
 FROM node:18-alpine as runner
