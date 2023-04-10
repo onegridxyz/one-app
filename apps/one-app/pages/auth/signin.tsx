@@ -24,6 +24,7 @@ export default function SignInPage() {
     },
     onSuccess: (data, variables, context) => {
       localStorage.setItem('id_token', data.data.id_token);
+      console.log(`=========> ${data.data.id_token}`);
     },
   });
 

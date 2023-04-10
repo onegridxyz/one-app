@@ -1,3 +1,5 @@
+import { environment } from "../../environments/environment";
+
 import axios from "axios";
 
 export interface LoginRequest {
@@ -11,7 +13,10 @@ export interface LoginResponse {
 }
 
 export const postAuthenticate = (loginRequest: LoginRequest) => {
-  const requestUrl = "/api/authenticate";
+  console.log(`------> ${JSON.stringify(process.env)}`);
+  const baseUrl = environment.gatewayUrl
+  console.log(`-----> ${baseUrl}`)
+  const requestUrl = `${baseUrl}/api/authenticate`;
   return axios.post<LoginResponse>(requestUrl, {
     username: loginRequest.username,
     password: loginRequest.password
