@@ -13,20 +13,21 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Copyright from '../../components/copyright/Copyright';
 import { useMutation } from '@tanstack/react-query';
-import { postAuthenticate } from '../../api/authenticate/Login';
+import { LoginRequest, postAuthenticate } from '../../api/authenticate/Login';
+import { LocalStorageConstants } from '../../constants/LocalStorageConstants';
 
 export default function SignInPage() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const loginMutate = useMutation({
-    mutationFn: () => {
-      return postAuthenticate({
-        username: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
+  const loginMutation = useMutation({
+    mutationFn: (loginRequest: LoginRequest) => {
+      return postAuthenticate(loginRequest);
     },
-    onSuccess: (data, variables, context) => {
-      localStorage.setItem('id_token', data.data.id_token);
+    onSuccess: (data) => {
+      localStorage.setItem(
+        LocalStorageConstants.ACCESS_TOKEN,
+        data.data.id_token
+      );
     },
   });
 
@@ -49,7 +50,7 @@ export default function SignInPage() {
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
-            ref={emailRef}
+            inputRef={emailRef}
             margin="normal"
             required
             fullWidth
@@ -60,7 +61,7 @@ export default function SignInPage() {
             autoFocus
           />
           <TextField
-            ref={passwordRef}
+            inputRef={passwordRef}
             margin="normal"
             required
             fullWidth
@@ -81,7 +82,10 @@ export default function SignInPage() {
             sx={{ mt: 3, mb: 2 }}
             onClick={(event) => {
               event.preventDefault();
-              loginMutate.mutate();
+              loginMutation.mutate({
+                username: emailRef.current?.value || '',
+                password: passwordRef.current?.value || '',
+              });
             }}
           >
             Sign In
