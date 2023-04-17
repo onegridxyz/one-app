@@ -12,25 +12,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Copyright from '../../components/copyright/Copyright';
-import { useMutation } from '@tanstack/react-query';
-import { LoginRequest, postAuthenticate } from '../../api/authenticate/Login';
-import { LocalStorageConstants } from '../../constants/LocalStorageConstants';
 import { useAuthContext } from '../../auth/useAuthContext';
 
 export default function SignInPage() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const loginMutation = useMutation({
-    mutationFn: (loginRequest: LoginRequest) => {
-      return postAuthenticate(loginRequest);
-    },
-    onSuccess: (data) => {
-      localStorage.setItem(
-        LocalStorageConstants.ACCESS_TOKEN,
-        data.data.id_token
-      );
-    },
-  });
   const { login } = useAuthContext();
 
   return (
@@ -84,10 +70,6 @@ export default function SignInPage() {
             sx={{ mt: 3, mb: 2 }}
             onClick={async (event) => {
               event.preventDefault();
-              // loginMutation.mutate({
-              //   username: emailRef.current?.value || '',
-              //   password: passwordRef.current?.value || '',
-              // });
               const username = emailRef.current?.value || '';
               const password = passwordRef.current?.value || '';
               await login(username, password);
