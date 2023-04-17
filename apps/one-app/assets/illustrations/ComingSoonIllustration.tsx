@@ -16,11 +16,16 @@ function ComingSoonIllustration({ ...other }: BoxProps) {
 
   const PRIMARY_DARK = theme.palette.primary.dark;
 
-  const PRIMARY_DARKER = theme.palette.primary.darker;
+  const PRIMARY_DARKER = theme.palette.primary.dark;
 
   return (
     <Box {...other}>
-      <svg width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 480 360"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <BackgroundIllustration />
 
         <image
@@ -41,7 +46,10 @@ function ComingSoonIllustration({ ...other }: BoxProps) {
           opacity="0.24"
         />
 
-        <path fill={PRIMARY_DARK} d="M58.778 79.4l14.6-6 80.2 7.5v7.6l-94.8.3v-9.4z" />
+        <path
+          fill={PRIMARY_DARK}
+          d="M58.778 79.4l14.6-6 80.2 7.5v7.6l-94.8.3v-9.4z"
+        />
         <path fill={PRIMARY_MAIN} d="M85.279 71h-14.4v199.5h14.4V71z" />
         <path
           fill="#fff"
