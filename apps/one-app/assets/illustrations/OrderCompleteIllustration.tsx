@@ -16,11 +16,16 @@ function OrderCompleteIllustration({ ...other }: BoxProps) {
 
   const PRIMARY_DARK = theme.palette.primary.dark;
 
-  const PRIMARY_DARKER = theme.palette.primary.darker;
+  const PRIMARY_DARKER = theme.palette.primary.dark;
 
   return (
     <Box {...other}>
-      <svg width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 480 360"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <BackgroundIllustration />
 
         <image

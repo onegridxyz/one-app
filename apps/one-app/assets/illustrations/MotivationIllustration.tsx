@@ -10,15 +10,20 @@ import BackgroundIllustration from './BackgroundIllustration';
 function MotivationIllustration({ ...other }: BoxProps) {
   const theme = useTheme();
 
-  const PRIMARY_LIGHTER = theme.palette.primary.lighter;
+  const PRIMARY_LIGHTER = theme.palette.primary.light;
 
   const PRIMARY_DARK = theme.palette.primary.dark;
 
-  const PRIMARY_DARKER = theme.palette.primary.darker;
+  const PRIMARY_DARKER = theme.palette.primary.dark;
 
   return (
     <Box {...other}>
-      <svg width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 480 360"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <BackgroundIllustration />
 
         <image
