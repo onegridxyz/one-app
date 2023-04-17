@@ -15,6 +15,7 @@ import Copyright from '../../components/copyright/Copyright';
 import { useMutation } from '@tanstack/react-query';
 import { LoginRequest, postAuthenticate } from '../../api/authenticate/Login';
 import { LocalStorageConstants } from '../../constants/LocalStorageConstants';
+import { useAuthContext } from '../../auth/useAuthContext';
 
 export default function SignInPage() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -30,6 +31,7 @@ export default function SignInPage() {
       );
     },
   });
+  const { login } = useAuthContext();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,12 +82,15 @@ export default function SignInPage() {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={(event) => {
+            onClick={async (event) => {
               event.preventDefault();
-              loginMutation.mutate({
-                username: emailRef.current?.value || '',
-                password: passwordRef.current?.value || '',
-              });
+              // loginMutation.mutate({
+              //   username: emailRef.current?.value || '',
+              //   password: passwordRef.current?.value || '',
+              // });
+              const username = emailRef.current?.value || '';
+              const password = passwordRef.current?.value || '';
+              await login(username, password);
             }}
           >
             Sign In

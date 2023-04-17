@@ -1,3 +1,9 @@
+import AuthGuard from '../../auth/AuthGuard';
+
 export default function ListingFlashCardPage() {
-  return <div>Flash Card Listing Page</div>;
+  return (
+    <AuthGuard>
+      <div>Flash Card Listing Page</div>
+    </AuthGuard>
+  );
 }
