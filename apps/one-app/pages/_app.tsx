@@ -6,21 +6,24 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './styles.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from '../auth/JwtContext';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <>
-        <Head>
-          <title>Welcome to one-app!</title>
-        </Head>
-        <main className="app">
-          <Component {...pageProps} />
-        </main>
-      </>
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <>
+          <Head>
+            <title>Welcome to one-app!</title>
+          </Head>
+          <main className="app">
+            <Component {...pageProps} />
+          </main>
+        </>
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 

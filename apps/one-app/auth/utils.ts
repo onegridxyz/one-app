@@ -1,12 +1,12 @@
 // routes
-import { LocalStorageConstants } from '@one-app/constants/LocalStorageConstants';
+import { LocalStorageConstants } from '../constants/LocalStorageConstants';
 import { PATH_AUTH } from '../routes/paths';
 // utils
 import axios from '../utils/axios';
 
 // ----------------------------------------------------------------------
 
-function jwtDecode(token: string) {
+export function jwtDecode(token: string) {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
@@ -50,7 +50,7 @@ export const tokenExpired = (exp: number) => {
   expiredTimer = setTimeout(() => {
     alert('Token expired');
 
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem(LocalStorageConstants.ACCESS_TOKEN);
 
     window.location.href = PATH_AUTH.login;
   }, timeLeft);

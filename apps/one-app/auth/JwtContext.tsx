@@ -9,14 +9,15 @@ import {
 import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
-import { isValidToken, setSession } from './utils';
+import { isValidToken, jwtDecode, setSession } from './utils';
 import {
   ActionMapType,
   AuthStateType,
   AuthUserType,
   JWTContextType,
 } from './types';
-import { LocalStorageConstants } from '@one-app/constants/LocalStorageConstants';
+import { LocalStorageConstants } from '../constants/LocalStorageConstants';
+import { LoginResponse } from '../api/authenticate/Login';
 
 // ----------------------------------------------------------------------
 
@@ -151,13 +152,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
-    const response = await axios.post('/api/account/login', {
-      email,
-      password,
+    const response = await axios.post<LoginResponse>('/api/authenticate', {
+      username: email,
+      password: password,
     });
-    const { accessToken, user } = response.data;
+    const { id_token: accessToken } = response.data;
 
     setSession(accessToken);
+
+    const user = jwtDecode(accessToken);
 
     dispatch({
       type: Types.LOGIN,
@@ -210,9 +213,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       user: state.user,
       method: 'jwt',
       login,
-      loginWithGoogle: () => {},
-      loginWithGithub: () => {},
-      loginWithTwitter: () => {},
+      // loginWithGoogle: () => {},
+      // loginWithGithub: () => {},
+      // loginWithTwitter: () => {},
       register,
       logout,
     }),
