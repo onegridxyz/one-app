@@ -1,6 +1,7 @@
 import { useAuthContext } from '../../auth/useAuthContext';
 import AuthGuard from '../../auth/AuthGuard';
 import { useGetCategories } from '../../api/category/category.hook';
+import Link from 'next/link';
 
 function ListingCategory() {
   const { user } = useAuthContext();
@@ -14,9 +15,15 @@ function ListingCategory() {
     <>
       <div>Flash Card Listing Page {JSON.stringify(user)}</div>
       <div>
-        {data?.map((category) => (
-          <div key={category.id}>{category.name}</div>
-        ))}
+        <ul>
+          {data?.map((category) => (
+            <li key={category.id}>
+              <Link href={`/category/view/${category.id}`}>
+                {category.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
