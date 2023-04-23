@@ -16,8 +16,8 @@ import {
   AuthUserType,
   JWTContextType,
 } from './types';
-import { LocalStorageConstants } from '../constants/LocalStorageConstants';
-import { LoginResponse } from '../api/authenticate/Login';
+import { LocalStorageConstants } from '../constants/local-storage.constants';
+import { LoginResponse } from '../api/authenticate/login.interface';
 
 // ----------------------------------------------------------------------
 
@@ -114,9 +114,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const response = await axios.get('/api/account/my-account');
+        const response = await axios.get('/api/account');
 
-        const { user } = response.data;
+        const user = response.data;
 
         dispatch({
           type: Types.INITIAL,

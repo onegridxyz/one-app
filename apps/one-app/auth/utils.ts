@@ -1,5 +1,5 @@
 // routes
-import { LocalStorageConstants } from '../constants/LocalStorageConstants';
+import { LocalStorageConstants } from '../constants/local-storage.constants';
 import { PATH_AUTH } from '../routes/paths';
 // utils
 import axios from '../utils/axios';
