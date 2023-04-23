@@ -16,8 +16,8 @@ import {
   AuthUserType,
   JWTContextType,
 } from './types';
-import { LocalStorageConstants } from '../constants/LocalStorageConstants';
-import { LoginResponse } from '../api/authenticate/Login';
+import { LocalStorageConstants } from '../constants/local-storage.constants';
+import { LoginResponse } from '../api/authenticate/login.interface';
 
 // ----------------------------------------------------------------------
 
