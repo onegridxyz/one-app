@@ -8,9 +8,11 @@ function ListingCategory() {
   const { isLoading, isError, data, error } = useGetCategories();
   if (isLoading) {
     return <div>Loading...</div>;
-  } else {
-    console.log({ data });
   }
+  if (isError) {
+    console.log({ error });
+  }
+
   return (
     <>
       <div>Flash Card Listing Page {JSON.stringify(user)}</div>

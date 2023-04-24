@@ -11,7 +11,8 @@ const findAll = async () => {
   return response.data;
 }
 
-const findById = async (id: number) => {
+const findById = async (data: any) => {
+  const [_, id] = data?.queryKey ?? [];
   const response = await axiosInstance.get<Category>(`${CATEGORY_RESOURCE_URI}/${id}`);
   return response.data;
 }
@@ -39,10 +40,4 @@ export const useGetCategories = () => {
  return { ...context };
 };
 
-export const useGetCategory = (id: number) => {
-  const context = useQuery(
-    [CATEGORY_RESOURCE_URI, id],
-    () => findById(id)
-  );
-  return { ...context };
-}
+export {findAll, findById, create, update, deleteById}
