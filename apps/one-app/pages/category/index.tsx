@@ -1,6 +1,6 @@
 import { useAuthContext } from '../../auth/useAuthContext';
 import AuthGuard from '../../auth/AuthGuard';
-import { useGetCategories } from '../../api/category/category.hook';
+import { useGetCategories } from '../../api/category/category.service';
 import Link from 'next/link';
 
 function ListingCategory() {
