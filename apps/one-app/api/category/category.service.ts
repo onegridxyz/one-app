@@ -35,7 +35,7 @@ const deleteById = async (id: number) => {
 export {findAll, findById, create, update, deleteById}
 
 export const useGetCategories = () => {
- const context = useQuery(
+ const context = useQuery<Category[], Error>(
     [CATEGORY_RESOURCE_URI],
     findAll
  );
